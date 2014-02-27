@@ -12,6 +12,7 @@
 
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 @property (unsafe_unretained) IBOutlet GRCustomizableWindow *texturedWindow;
+@property (unsafe_unretained) IBOutlet GRCustomizableWindow *cbWindow;
 
 @end
 
@@ -24,6 +25,10 @@
     self.window.titleColor = [NSColor colorWithCalibratedWhite:1.0 alpha:1.0];
     self.window.backgroundColor = [NSColor colorWithCalibratedRed:0.642 green:0.795 blue:0.985 alpha:1.000];
     self.window.centerControls = YES;
+    
+    self.cbWindow.titlebarColor = [NSColor colorWithCalibratedRed:0.987 green:0.217 blue:0.160 alpha:1.000];
+    self.cbWindow.titleColor = [NSColor colorWithCalibratedWhite:1.0 alpha:1.0];
+    self.cbWindow.backgroundColor = [NSColor colorWithCalibratedRed:0.995 green:0.787 blue:0.664 alpha:1.000];
     
     [self.textView.textStorage readFromURL:[[NSBundle mainBundle] URLForResource:@"Info" withExtension:@"rtf"] options:nil documentAttributes:nil];
     

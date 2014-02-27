@@ -696,6 +696,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="cbWindow" destination="tob-dk-DQe" id="OKA-Br-oz3"/>
                 <outlet property="textView" destination="3Xh-31-AuL" id="4pM-P4-Q2X"/>
                 <outlet property="texturedWindow" destination="res-cR-6uN" id="Quj-7B-tf7"/>
                 <outlet property="window" destination="371" id="532"/>
@@ -728,6 +729,33 @@
                     <constraint firstItem="w4D-Ix-FQ1" firstAttribute="leading" secondItem="FVc-aR-2EN" secondAttribute="leading" constant="53" id="oNr-vY-Iig"/>
                 </constraints>
             </view>
+        </window>
+        <window title="Window with Content Border" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="tob-dk-DQe" customClass="GRCustomizableWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="207" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <view key="contentView" id="phd-YV-G9y">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LH3-vN-rnT">
+                        <rect key="frame" x="132" y="9" width="217" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="This window has a content border" id="TuO-LO-3pp">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="LH3-vN-rnT" secondAttribute="bottom" constant="9" id="VUb-Mc-24I"/>
+                    <constraint firstItem="LH3-vN-rnT" firstAttribute="centerX" secondItem="phd-YV-G9y" secondAttribute="centerX" id="aDq-gZ-oy4"/>
+                </constraints>
+            </view>
+            <contentBorderThickness minY="32"/>
         </window>
     </objects>
 </document>

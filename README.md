@@ -6,6 +6,7 @@ NSWindow subclass with support to custom titlebar height, background color and t
 
 ![screenshot](https://raw.github.com/insidegui/GRCustomizableWindow/master/screenshot_1.png)
 ![screenshot](https://raw.github.com/insidegui/GRCustomizableWindow/master/screenshot_2.png)
+![screenshot](https://raw.github.com/insidegui/GRCustomizableWindow/master/screenshot_3.png)
 
 ## Contributing
 

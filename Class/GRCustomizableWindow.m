@@ -71,7 +71,8 @@
     if (self.styleMask & NSFullScreenWindowMask) {
         return NSMakeRect(0, 0, NSWidth(frameRect), NSHeight(frameRect));
     } else {
-        return NSMakeRect(0, 0, NSWidth(frameRect), NSHeight(frameRect)-self.titlebarHeight.doubleValue-1);
+        CGFloat contentBorderHeight = [self contentBorderThicknessForEdge:NSMinYEdge];
+        return NSMakeRect(0, contentBorderHeight, NSWidth(frameRect), NSHeight(frameRect)-self.titlebarHeight.doubleValue);
     }
 }
 
@@ -129,6 +130,7 @@
     NSColor *_titlebarSeparatorColorNoKey;
     NSGradient *_titlebarOverlayGradient;
     NSColor *_titleStringColorNoKey;
+    NSColor *_contentBorderHighlightColor;
     NSShadow *_titleStringShadow;
 }
 
@@ -176,14 +178,18 @@
         return;
     }
     
-    if (![self _isFullScreen]) [self drawTitlebar];
+    // if not fullscreen, draw titlebar and content border
+    if (![self _isFullScreen]) {
+        [self drawContentBorder];
+        [self drawTitlebar];
+    }
 }
 
 - (void)drawTitlebar
 {
-    NSRect titlebarRect = [self titlebarRect];
+    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceOver];
     
-    [[NSGraphicsContext currentContext] saveGraphicsState];
+    NSRect titlebarRect = [self titlebarRect];
     
     // draw base color
     if (self.window.isKeyWindow) {
@@ -206,17 +212,45 @@
     }
     
     [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusDarker];
-    NSRect separatorRect = NSMakeRect(titlebarRect.origin.x, NSHeight(self.frame)-NSHeight(titlebarRect)-1, NSWidth(titlebarRect), 1);
+    NSRect separatorRect = NSMakeRect(titlebarRect.origin.x, NSHeight(self.frame)-NSHeight(titlebarRect), NSWidth(titlebarRect), 1);
     NSRectFill(separatorRect);
-    
-    [[NSGraphicsContext currentContext] restoreGraphicsState];
     
     [self drawTitleString];
 }
 
+- (void)drawContentBorder
+{
+    CGFloat borderThickness = [self.window contentBorderThicknessForEdge:NSMinYEdge];
+    if (borderThickness <= 0) return;
+
+    // draw content border background
+    NSRect contentBorderRect = NSMakeRect(0, 0, NSWidth(self.frame), borderThickness);
+    if (self.window.isKeyWindow) {
+        [_titlebarColor setFill];
+    } else {
+        [_titlebarColorNoKey setFill];
+    }
+    NSRectFill(contentBorderRect);
+    
+    // draw separator
+    NSRect contentBorderSeparatorRect = NSMakeRect(0, NSHeight(contentBorderRect)-1, NSWidth(self.frame), 1);
+    [_titlebarSeparatorColor setFill];
+    NSRectFill(contentBorderSeparatorRect);
+    
+    // draw overlay gradient
+    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusLighter];
+    [_titlebarOverlayGradient drawInRect:contentBorderRect angle:90];
+    
+    // draw top highlight
+    NSRect contentBorderHighlightRect = NSMakeRect(0, NSHeight(contentBorderRect)-2, NSWidth(self.frame), 1);
+    [_contentBorderHighlightColor setFill];
+    NSRectFill(contentBorderHighlightRect);
+
+}
+
 - (void)drawTexturedBackground:(NSRect)dirtyRect
 {
-    [[NSGraphicsContext currentContext] saveGraphicsState];
+    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceOver];
     
     // draw base color
     if (self.window.isKeyWindow) {
@@ -231,8 +265,6 @@
     [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusLighter];
     [_titlebarOverlayGradient drawInRect:self.bounds angle:90];
     
-    [[NSGraphicsContext currentContext] restoreGraphicsState];
-    
     // we only draw the title if the window is not fullscreen
     if (![self _isFullScreen]) [self drawTitleString];
 }
@@ -243,20 +275,31 @@
     
     if (!_titleStringColor) [self _setTitleStringColor:[self offsetColor:_titlebarColor by:-0.4]];
     
+    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositeSourceOver];
+    
     NSRect titleRect = [super _titleControlRect];
     
     if (!_shouldCenterControls) {
-        titleRect.origin.y += NSHeight([self titlebarRect])/2-titleRect.size.height/2-2;
+        titleRect.origin.y += round(NSHeight([self titlebarRect])/2-titleRect.size.height/2-2);
+    } else {
+        // adjust the rect to prevent glitches
+        titleRect.size.width += 4;
+        titleRect.size.height += 4;
+        titleRect.origin.y -= 2;
     }
     
     NSDictionary *attributes;
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.alignment = NSCenterTextAlignment;
     if (self.window.isKeyWindow) {
         attributes = @{NSFontAttributeName: _titleStringFont,
                        NSForegroundColorAttributeName : _titleStringColor,
-                       NSShadowAttributeName : _titleStringShadow};
+                       NSShadowAttributeName : _titleStringShadow,
+                       NSParagraphStyleAttributeName : style};
     } else {
         attributes = @{NSFontAttributeName: _titleStringFont,
-                       NSForegroundColorAttributeName : _titleStringColorNoKey};
+                       NSForegroundColorAttributeName : _titleStringColorNoKey,
+                       NSParagraphStyleAttributeName : style};
     }
     
     [self.window.title drawInRect:titleRect withAttributes:attributes];
@@ -281,6 +324,7 @@
     _titlebarSeparatorColor = [self offsetColor:_titlebarColor by:-0.15];
     _titlebarSeparatorColorNoKey = [self offsetColor:_titlebarColor by:-0.08];
     _titlebarColorNoKey = [self offsetColor:_titlebarColor by:0.08];
+    _contentBorderHighlightColor = [self offsetColor:_titlebarColor by:0.5];
     
     // force redraw
     [self setBounds:self.bounds];
