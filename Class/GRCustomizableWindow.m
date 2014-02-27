@@ -259,6 +259,8 @@
         [_titlebarColorNoKey setFill];
     }
     
+    CGContextSetPatternPhase([[NSGraphicsContext currentContext] graphicsPort], CGSizeMake(0, NSHeight(self.frame)));
+    
     NSRectFill(dirtyRect);
     
     // draw overlay gradient
@@ -428,6 +430,10 @@
 
 - (NSColor *)offsetColor:(NSColor *)color by:(CGFloat)offset {
 	// Based on code by Martin Pilkington (https://github.com/pilky/M3Appkit)
+    
+    if ([color.colorSpaceName isEqualToString:NSPatternColorSpace]) {
+        return color;
+    }
     
 	CGFloat red = 0;
 	CGFloat green = 0;

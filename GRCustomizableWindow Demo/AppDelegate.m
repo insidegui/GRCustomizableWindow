@@ -13,6 +13,7 @@
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 @property (unsafe_unretained) IBOutlet GRCustomizableWindow *texturedWindow;
 @property (unsafe_unretained) IBOutlet GRCustomizableWindow *cbWindow;
+@property (unsafe_unretained) IBOutlet GRCustomizableWindow *leatherWindow;
 
 @end
 
@@ -34,6 +35,9 @@
     
     self.texturedWindow.titlebarColor = [NSColor colorWithCalibratedRed:0.433 green:0.902 blue:0.213 alpha:1.000];
     self.texturedWindow.titleColor = [NSColor colorWithCalibratedRed:0.165 green:0.322 blue:0.090 alpha:1.000];
+
+    self.leatherWindow.titlebarColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"Leather"]];
+    self.leatherWindow.titleColor = [NSColor whiteColor];
 }
 
 @end

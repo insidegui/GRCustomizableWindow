@@ -16,6 +16,8 @@
 		DD878E0418BEC62B001C5E8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD878E0318BEC62B001C5E8C /* Images.xcassets */; };
 		DD878E2218BEC652001C5E8C /* GRCustomizableWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = DD878E2118BEC652001C5E8C /* GRCustomizableWindow.m */; };
 		DD878E2418BEC9FE001C5E8C /* Info.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DD878E2318BEC9FE001C5E8C /* Info.rtf */; };
+		DDA9663018BF9E130041CDB5 /* Leather.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA9662F18BF9E130041CDB5 /* Leather.png */; };
+		DDA9663218BF9E6F0041CDB5 /* Leather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDA9663118BF9E6F0041CDB5 /* Leather@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		DD878E2018BEC652001C5E8C /* GRCustomizableWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRCustomizableWindow.h; sourceTree = "<group>"; };
 		DD878E2118BEC652001C5E8C /* GRCustomizableWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GRCustomizableWindow.m; sourceTree = "<group>"; };
 		DD878E2318BEC9FE001C5E8C /* Info.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info.rtf; sourceTree = "<group>"; };
+		DDA9662F18BF9E130041CDB5 /* Leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Leather.png; sourceTree = "<group>"; };
+		DDA9663118BF9E6F0041CDB5 /* Leather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Leather@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 		DD878DF218BEC62B001C5E8C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DDA9663118BF9E6F0041CDB5 /* Leather@2x.png */,
+				DDA9662F18BF9E130041CDB5 /* Leather.png */,
 				DD878DF318BEC62B001C5E8C /* GRCustomizableWindow Demo-Info.plist */,
 				DD878DF418BEC62B001C5E8C /* InfoPlist.strings */,
 				DD878DF718BEC62B001C5E8C /* main.m */,
@@ -180,6 +186,8 @@
 				DD878E0418BEC62B001C5E8C /* Images.xcassets in Resources */,
 				DD878DFC18BEC62B001C5E8C /* Credits.rtf in Resources */,
 				DD878E0218BEC62B001C5E8C /* MainMenu.xib in Resources */,
+				DDA9663218BF9E6F0041CDB5 /* Leather@2x.png in Resources */,
+				DDA9663018BF9E130041CDB5 /* Leather.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +347,7 @@
 				DD878E1B18BEC62B001C5E8C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
