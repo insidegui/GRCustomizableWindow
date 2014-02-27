@@ -44,4 +44,10 @@
  */
 @property (nonatomic, assign) BOOL centerControls;
 
+/*!
+ @property enableGradients
+ @abstract Defines whether the window's title bar and content border should have a gradient added to them
+ */
+@property (nonatomic, assign) BOOL enableGradients;
+
 @end

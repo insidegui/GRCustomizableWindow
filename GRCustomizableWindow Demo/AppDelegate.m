@@ -14,6 +14,7 @@
 @property (unsafe_unretained) IBOutlet GRCustomizableWindow *texturedWindow;
 @property (unsafe_unretained) IBOutlet GRCustomizableWindow *cbWindow;
 @property (unsafe_unretained) IBOutlet GRCustomizableWindow *leatherWindow;
+@property (unsafe_unretained) IBOutlet GRCustomizableWindow *flWindow;
 
 @end
 
@@ -38,6 +39,10 @@
 
     self.leatherWindow.titlebarColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"Leather"]];
     self.leatherWindow.titleColor = [NSColor whiteColor];
+    self.leatherWindow.enableGradients = NO;
+    
+    self.flWindow.titlebarColor = [NSColor colorWithCalibratedWhite:0.9 alpha:1.0];
+    self.flWindow.enableGradients = NO;
 }
 
 @end

@@ -697,6 +697,7 @@
         <customObject id="494" customClass="AppDelegate">
             <connections>
                 <outlet property="cbWindow" destination="tob-dk-DQe" id="OKA-Br-oz3"/>
+                <outlet property="flWindow" destination="xGw-Y1-Gmn" id="S2b-1r-a1Y"/>
                 <outlet property="leatherWindow" destination="I9h-28-u8O" id="WRU-0r-haf"/>
                 <outlet property="textView" destination="3Xh-31-AuL" id="4pM-P4-Q2X"/>
                 <outlet property="texturedWindow" destination="res-cR-6uN" id="Quj-7B-tf7"/>
@@ -786,6 +787,16 @@
                     <constraint firstItem="wVf-Ge-Xer" firstAttribute="leading" secondItem="qsZ-Ij-idM" secondAttribute="leading" constant="53" id="WAk-uk-egW"/>
                     <constraint firstItem="wVf-Ge-Xer" firstAttribute="centerX" secondItem="qsZ-Ij-idM" secondAttribute="centerX" id="dUF-UG-MYk"/>
                 </constraints>
+            </view>
+        </window>
+        <window title="Flat Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="xGw-Y1-Gmn" customClass="GRCustomizableWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="136" y="163" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <view key="contentView" id="yUk-OD-TJh">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
             </view>
         </window>
     </objects>

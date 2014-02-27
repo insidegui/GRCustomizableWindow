@@ -29,6 +29,7 @@
 - (void)_setTitleStringColor:(NSColor *)color;
 - (void)_setTitleStringFont:(NSFont *)font;
 - (void)_setCenterControls:(BOOL)center;
+- (void)_setDrawGradients:(BOOL)draw;
 
 @end
 
@@ -41,6 +42,7 @@
     if (!self) return nil;
     
     // defaults
+    self.enableGradients = YES;
     self.titlebarHeight = @22;
     self.titlebarColor = [NSColor colorWithCalibratedWhite:0.5 alpha:1.0];
     self.titleFont = [NSFont systemFontOfSize:13.0];
@@ -113,6 +115,13 @@
     [[self _frameView] _setCenterControls:_centerControls];
 }
 
+- (void)setEnableGradients:(BOOL)enableGradients
+{
+    _enableGradients = enableGradients;
+    
+    [[self _frameView] _setDrawGradients:_enableGradients];
+}
+
 @end
 
 @implementation GRCustomizableWindowFrame
@@ -123,6 +132,7 @@
     NSColor *_titleStringColor;
     NSFont *_titleStringFont;
     BOOL _shouldCenterControls;
+    BOOL _shouldDrawGradients;
     
     // this is used internally
     NSColor *_titlebarColorNoKey;
@@ -201,8 +211,7 @@
     NSRectFill(titlebarRect);
     
     // draw overlay gradient
-    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusLighter];
-    [_titlebarOverlayGradient drawInRect:titlebarRect angle:90];
+    [self drawOverlayGradientInRect:titlebarRect];
     
     // draw separator line
     if (self.window.isKeyWindow) {
@@ -238,8 +247,7 @@
     NSRectFill(contentBorderSeparatorRect);
     
     // draw overlay gradient
-    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusLighter];
-    [_titlebarOverlayGradient drawInRect:contentBorderRect angle:90];
+    [self drawOverlayGradientInRect:contentBorderRect];
     
     // draw top highlight
     NSRect contentBorderHighlightRect = NSMakeRect(0, NSHeight(contentBorderRect)-2, NSWidth(self.frame), 1);
@@ -264,8 +272,7 @@
     NSRectFill(dirtyRect);
     
     // draw overlay gradient
-    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusLighter];
-    [_titlebarOverlayGradient drawInRect:self.bounds angle:90];
+    [self drawOverlayGradientInRect:self.bounds];
     
     // we only draw the title if the window is not fullscreen
     if (![self _isFullScreen]) [self drawTitleString];
@@ -305,6 +312,16 @@
     }
     
     [self.window.title drawInRect:titleRect withAttributes:attributes];
+}
+
+- (void)drawOverlayGradientInRect:(NSRect)rect
+{
+    if (!_shouldDrawGradients) return;
+    
+    [[NSGraphicsContext currentContext] saveGraphicsState];
+    [[NSGraphicsContext currentContext] setCompositingOperation:NSCompositePlusLighter];
+    [_titlebarOverlayGradient drawInRect:rect angle:90];
+    [[NSGraphicsContext currentContext] restoreGraphicsState];
 }
 
 // our private API...
@@ -354,6 +371,14 @@
 - (void)_setCenterControls:(BOOL)center
 {
     _shouldCenterControls = center;
+    
+    // force redraw
+    [self setBounds:self.bounds];
+}
+
+- (void)_setDrawGradients:(BOOL)draw
+{
+    _shouldDrawGradients = draw;
     
     // force redraw
     [self setBounds:self.bounds];
