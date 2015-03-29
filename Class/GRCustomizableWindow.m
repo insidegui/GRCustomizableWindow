@@ -332,6 +332,7 @@
     
     // force redraw
     [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
 }
 
 - (void)_setTitlebarColor:(NSColor *)color
@@ -347,6 +348,7 @@
     
     // force redraw
     [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
 }
 
 - (void)_setTitleStringColor:(NSColor *)color
@@ -358,6 +360,7 @@
     
     // force redraw
     [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
 }
 
 - (void)_setTitleStringFont:(NSFont *)font
@@ -366,6 +369,7 @@
     
     // force redraw
     [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
 }
 
 - (void)_setCenterControls:(BOOL)center
@@ -374,6 +378,7 @@
     
     // force redraw
     [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
 }
 
 - (void)_setDrawGradients:(BOOL)draw
@@ -382,6 +387,7 @@
     
     // force redraw
     [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
 }
 
 - (NSRect)titlebarRect
