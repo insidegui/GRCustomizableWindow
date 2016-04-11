@@ -23,6 +23,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.window.titlebarHeight = @40;
+    self.window.controlsXOffset = 10.f;
     self.window.titlebarColor = [NSColor colorWithCalibratedRed:0.110 green:0.281 blue:0.998 alpha:1.000];
     self.window.titleColor = [NSColor colorWithCalibratedWhite:1.0 alpha:1.0];
     self.window.backgroundColor = [NSColor colorWithCalibratedRed:0.642 green:0.795 blue:0.985 alpha:1.000];
