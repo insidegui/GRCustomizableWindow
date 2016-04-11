@@ -39,6 +39,12 @@
 @property (nonatomic, copy) NSFont *titleFont;
 
 /*!
+ @property controlsXOffset
+ @abstract Defines X Offset for window's controls buttons
+ */
+@property (nonatomic, assign) CGFloat controlsXOffset;
+
+/*!
  @property centerControls
  @abstract Defines if the window's buttons and title should be centered vertically
  */

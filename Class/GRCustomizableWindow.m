@@ -28,6 +28,7 @@
 - (void)_setTitlebarColor:(NSColor *)color;
 - (void)_setTitleStringColor:(NSColor *)color;
 - (void)_setTitleStringFont:(NSFont *)font;
+- (void)_setControlsXOffset:(CGFloat)offset;
 - (void)_setCenterControls:(BOOL)center;
 - (void)_setDrawGradients:(BOOL)draw;
 
@@ -44,6 +45,7 @@
     // defaults
     self.enableGradients = YES;
     self.titlebarHeight = @22;
+    self.controlsXOffset = 0.f;
     self.titlebarColor = [NSColor colorWithCalibratedWhite:0.5 alpha:1.0];
     self.titleFont = [NSFont systemFontOfSize:13.0];
     
@@ -108,6 +110,13 @@
     [[self _frameView] _setTitleStringFont:titleFont];
 }
 
+- (void)setControlsXOffset:(CGFloat)controlsXOffset
+{
+    _controlsXOffset = controlsXOffset;
+    
+    [[self _frameView] _setControlsXOffset:_controlsXOffset];
+}
+
 - (void)setCenterControls:(BOOL)centerControls
 {
     _centerControls = centerControls;
@@ -131,6 +140,7 @@
     NSColor *_titlebarColor;
     NSColor *_titleStringColor;
     NSFont *_titleStringFont;
+    CGFloat _controlsXOffset;
     BOOL _shouldCenterControls;
     BOOL _shouldDrawGradients;
     
@@ -372,6 +382,14 @@
     [ self setNeedsDisplay: YES ];
 }
 
+- (void)_setControlsXOffset:(CGFloat)offset
+{
+    _controlsXOffset = offset;
+    // force redraw
+    [self setBounds:self.bounds];
+    [ self setNeedsDisplay: YES ];
+}
+
 - (void)_setCenterControls:(BOOL)center
 {
     _shouldCenterControls = center;
@@ -405,9 +423,9 @@
     NSPoint origin = CGPointZero;
     
     if (_shouldCenterControls) {
-        origin = CGPointMake(NSWidth(self.frame)-20, [self _centeredTrafficLightsY]);
+        origin = CGPointMake(NSWidth(self.frame)-20+_controlsXOffset, [self _centeredTrafficLightsY]);
     } else {
-        origin = CGPointMake(NSWidth(self.frame)-20, NSHeight(self.frame)-20);
+        origin = CGPointMake(NSWidth(self.frame)-20+_controlsXOffset, NSHeight(self.frame)-20);
     }
     
     return origin;
@@ -418,9 +436,9 @@
     NSPoint origin = CGPointZero;
     
     if (_shouldCenterControls) {
-        origin = CGPointMake(6, [self _centeredTrafficLightsY]);
+        origin = CGPointMake(6+_controlsXOffset, [self _centeredTrafficLightsY]);
     } else {
-        origin = CGPointMake(6, NSHeight(self.frame)-19);
+        origin = CGPointMake(6+_controlsXOffset, NSHeight(self.frame)-19);
     }
     
     return origin;
@@ -431,9 +449,9 @@
     NSPoint origin = CGPointZero;
     
     if (_shouldCenterControls) {
-        origin = CGPointMake(46, [self _centeredTrafficLightsY]);
+        origin = CGPointMake(46+_controlsXOffset, [self _centeredTrafficLightsY]);
     } else {
-        origin = CGPointMake(46, NSHeight(self.frame)-19);
+        origin = CGPointMake(46+_controlsXOffset, NSHeight(self.frame)-19);
     }
     
     return origin;
