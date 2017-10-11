@@ -1,3 +1,7 @@
+**This project is not under active development anymore.**
+
+There are better ways to customize windows on modern macOS (using full size content view or customizing the titlebar view).
+
 # GRCustomizableWindow
 
 NSWindow subclass with support to custom titlebar height, background color and title color
